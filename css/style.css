@@ -1,0 +1,19 @@
+* {
+    background-color: darkblue;
+}
+
+button {
+    background-color: pink;
+}
+
+.container {
+    height: 20px;
+    background-color: #ccc;
+    position: relative;
+}
+
+.container .progressie-bar {
+    position: absolute;
+    height: 100%;
+    background-color: blue;
+}
