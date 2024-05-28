@@ -10,7 +10,7 @@ function FishEats(){
 }
 
 knopEten.addEventListener("click", FishEats);
-
+ 
 
 // function veranderGetal() {
 //     let getal = Math.random();
