@@ -8,19 +8,22 @@
     <script src="javascript/javascript.js" defer></script>
 </head>
 <body>
-    <h1>welkom <span id="naamveld">...</span></h1>
-    <button>start</button>
-    <!-- <p>yoo</p> -->
-    <img src="afbeeldingen-links/rode-inktvis.png" alt="rode inktvis">  
+    <section>
+        <div>
+            <input type="text" placeholder="Geef je octopus een naam" size="25">
+            <button id="nameGenerator">Random naam</button>
+        </div>
+         <!-- <p>yoo</p> -->
 
-    <!-- dit stukje heb ik uit een youtube video over hoe je een progress-bar kan maken met behulp van html, css en javascript
-    https://www.youtube.com/watch?v=4LBRMSk6PLY -->
-    <div class="container">
-        <div class="progressie-bar"></div>
-    </div>
+        <div id="hongerBalk">
+            <div id="hongerVulling"></div>
+        </div>
+        <img src="afbeeldingen-links/rode-inktvis.png" alt="rode inktvis">  
+
     
-    <button class="eten">eten</button>
-    <button class="slapen">slapen</button>
-    <button class="liefde">liefde</button>
+        <button id="eten">eten</button>
+        <button id="slapen">slapen</button>
+        <button id="liefde">liefde</button>
+    </section>
 </body>
 </html>
