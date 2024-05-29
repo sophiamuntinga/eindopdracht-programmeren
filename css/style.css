@@ -1,12 +1,12 @@
 * {
-    background-color: darkblue;
+    background-color: whitesmoke;
 }
 
 button {
     background-color: pink;
 }
 
-.container {
+/* .container {
     height: 20px;
     background-color: #ccc;
     position: relative;
@@ -16,4 +16,4 @@ button {
     position: absolute;
     height: 100%;
     background-color: blue;
-}
+} */
