@@ -1,29 +1,33 @@
 let naamInput = document.querySelector("input");
 let randomNaamKnop = document.querySelector("#nameGenerator");
-const knop = document.querySelector("button");
+
 const knopEten = document.querySelector("#eten");
 const knopSlapen = document.querySelector("#slapen");
 const knopLiefde = document.querySelector("#liefde");
+
 let audioEten = new Audio("./afbeeldingen-links/eating-sound.mp3");
 let audioSlapen = new Audio("./afbeeldingen-links/sleeping-sound.mp3");
 let audioLiefde = new Audio("./afbeeldingen-links/kissing-sound.mp3")
+
 let naamveld = document.querySelector("#naamveld");
 const standaardNamen = ["Indy", "Octo", "Janneke", "Henk", "Bo", "Tineke"];
-let octImage = document.querySelector("img");
-let hungerBar = document.querySelector("#hongerVulling");
-let width = 100;
-let hungerID;
 
-// gekopieerd van mozzila https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#examples 
-// het zorgt ervoor dat ik een random nummer tussen 0 en 6 kan kiezen, zoals je kunt zien in lijn ...
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
+let octImage = document.querySelector("img");
+
+let hungerBar = document.querySelector("#hongerVulling");
+let widthHunger = 100;
+let widthSlaap = 100;
+let hungerID;
+let slaapBar = document.querySelector("#slaapVulling")
+
+
+
 
 function generateRandomName() {
-    naamInput.value = standaardNamen[getRandomInt(6)]
+    const getal = Math.floor(Math.random() * 6);
+    naamInput.value = standaardNamen[getal];
 }
-randomNaamKnop.addEventListener("click", generateRandomName)
+
 
 // dit zorgt voor een passend geluid als je op een van de knoppen drukt
 function playSound(audio){
@@ -43,28 +47,49 @@ function changeImage(imgLink) {
     }, 1000)
 }
 
+// Hier hebben mijn broertje en Diego me mee geholpen. Het stukje ${widthHunger}% is gescherven door chatgpt. Het zorgt ervoor dat de bar van de honger elke seconde -1 (naar links gaat).
 function hungerDown() {
-    console.log(width)
-    if (width <= 0) {
+    console.log(widthHunger)
+    if (widthHunger <= 0) {
         // ONTPLOFFING
     } else {
-        hungerBar.style.width = `${width}%`;
-        width--;
+        hungerBar.style.width = `${widthHunger}%`;
+        widthHunger--;
     }
 }
 
 function gainHunger() {
-    width += 10;
+    widthHunger += 10;
     playSound(audioEten)
     changeImage("afbeeldingen-links/etende-rode-inktvis.png");
-    if(width >= 100){
-        width = 100;
+    if(widthHunger >= 100){
+        widthHunger = 100;
     }
 }
 
-
-
 setInterval(hungerDown, 1000);
+
+
+function slaapBarDown() {
+    console.log(widthSlaap)
+    if (widthSlaap <= 0) {
+        // ONTPLOFFING
+    } else {
+        slaapBar.style.width = `${widthSlaap}%`;
+        widthSlaap--;
+    }
+}
+
+function slaapBarUp() {
+    widthSlaap += 10;
+    playSound(audioSlapen)
+    changeImage("afbeeldingen-links/slapende-rode-inktvis.png");
+    if(widthSlaap >= 100){
+        widthSlaap = 100;
+    }
+}
+
+setInterval(slaapBarDown, 1000);
 
 // function groet(naam, typeGroet){
 //     console.log("groet persoon");
@@ -75,22 +100,11 @@ setInterval(hungerDown, 1000);
 
 
 
-
- 
-
-// function veranderGetal() {
-//     let getal = Math.random();
-//     document.querySelector('p').textContent = getal;
-//     console.log(getal);
-// }
-
-// knop.addEventListener('click', veranderGetal);
+// deze event listener zorgt ervoor dat de funtie generateRandomName wordt uitgevoerd
+randomNaamKnop.addEventListener("click", generateRandomName)
 
 knopEten.addEventListener("click", gainHunger);
-knopSlapen.addEventListener("click", function() {
-    playSound(audioSlapen)
-    changeImage("afbeeldingen-links/slapende-rode-inktvis.png");
-});
+knopSlapen.addEventListener("click", slaapBarUp);
 knopLiefde.addEventListener("click", function() {
     playSound(audioLiefde)
     changeImage("afbeeldingen-links/liefde-rode-inktvis.png")
