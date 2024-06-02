@@ -33,6 +33,8 @@ function generateRandomName() {
 function playSound(audio){
     audio.play();
 }
+
+// Bij deze functie heeft mijn broertje me geholpen. Het zorgt ervoor dat de default afbeelding de rode-inkvis.png is en de andere afbeeldingen voor een bepaalde tijd bijven, waarna de default afbeelding weer tevoorschijn komt.
 function changeImage(imgLink) {
     const defaultImgLink = "afbeeldingen-links/rode-inktvis.png";
     octImage.src = imgLink;
@@ -58,6 +60,7 @@ function hungerDown() {
     }
 }
 
+// dit stukje zorgt ervoor dat wanneer getriggert de balk van honger met 10 naar rechts gaat, het audioEten word afgespeeld en de afbeelding van de inktvis tijdelijk veranderd naar een plaatje van een etende inktvis.
 function gainHunger() {
     widthHunger += 10;
     playSound(audioEten)
@@ -67,9 +70,10 @@ function gainHunger() {
     }
 }
 
+// deze interval zorgt ervoor dat de funtie hungerDown automatisch constant wordt uitgevoerd.
 setInterval(hungerDown, 1000);
 
-
+// deze funtie is hetzelfde als de hungerDown funtie, maar dan voor de slaapknop.
 function slaapBarDown() {
     console.log(widthSlaap)
     if (widthSlaap <= 0) {
@@ -80,6 +84,7 @@ function slaapBarDown() {
     }
 }
 
+// deze funtie is hetzelfde als de gainHunger funtie, maar dan voor de slaapknop.
 function slaapBarUp() {
     widthSlaap += 10;
     playSound(audioSlapen)
@@ -89,6 +94,7 @@ function slaapBarUp() {
     }
 }
 
+// deze interval zorgt ervoor dat de funtie slaapBarDown automatisch constant wordt uitgevoerd.
 setInterval(slaapBarDown, 1000);
 
 // function groet(naam, typeGroet){
@@ -103,8 +109,11 @@ setInterval(slaapBarDown, 1000);
 // deze event listener zorgt ervoor dat de funtie generateRandomName wordt uitgevoerd
 randomNaamKnop.addEventListener("click", generateRandomName)
 
+// deze eventlisteners zorgen ervoor dat de functies gainHunger en slaapBarUp worden uitgevoerd
 knopEten.addEventListener("click", gainHunger);
 knopSlapen.addEventListener("click", slaapBarUp);
+
+// deze eventlistener wil ik nog aanpassen zodat er geen functie in staat.
 knopLiefde.addEventListener("click", function() {
     playSound(audioLiefde)
     changeImage("afbeeldingen-links/liefde-rode-inktvis.png")
