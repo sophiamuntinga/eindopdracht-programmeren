@@ -2,6 +2,7 @@ const naamInput = document.querySelector("input");
 const randomNaamKnop = document.getElementById("nameGenerator");
 const naamKiezer = document.getElementById("naamKiezer")
 const beginScherm = document.getElementById("beginScherm");
+const eindScherm = document.getElementById("eindScherm")
 
 const knopEten = document.querySelector("#eten");
 const knopSlapen = document.querySelector("#slapen");
@@ -18,11 +19,16 @@ const octImage = document.querySelector("img");
 
 const hungerBar = document.querySelector("#hongerVulling");
 const slaapBar = document.querySelector("#slaapVulling");
+const liefdeBar = document.querySelector("#liefdeVulling");
+
+const tekstVerloren = document.getElementById("tekstVerloren")
+const speelOpnieuw = document.getElementById("speelOpnieuw")
 
 let octopusNaam;
 let naamGekozen = false;
 let widthHunger = 100;
 let widthSlaap = 100;
+let widthLiefde = 100;
 let hungerID;
 
 function geefNaam() {
@@ -32,6 +38,7 @@ function geefNaam() {
     } else {
         beginScherm.style.display = "none";
         naamGekozen = true;
+        tekstVerloren.textContent = octopusNaam + " is ontploft!"
     }
 }
 function generateRandomName() {
@@ -64,7 +71,7 @@ function changeImage(imgLink) {
 function hungerDown() {
     if(naamGekozen == true){
         if (widthHunger <= 0) {
-            // ONTPLOFFING
+            eindScherm.style.display = "block"
         } else if (widthSlaap >= 0){
             hungerBar.style.width = `${widthHunger}%`;
             widthHunger--;
@@ -85,10 +92,9 @@ function gainHunger() {
 
 // deze funtie is hetzelfde als de hungerDown funtie, maar dan voor de slaapknop.
 function slaapBarDown() {
-    console.log(widthSlaap)
     if(naamGekozen == true){
         if (widthSlaap <= 0) {
-            // ONTPLOFFING
+            eindScherm.style.display = "block"
         } else if (widthSlaap >= 0){
             slaapBar.style.width = `${widthSlaap}%`;
             widthSlaap--;
@@ -106,11 +112,40 @@ function slaapBarUp() {
     }
 }
 
+// deze funtie is hetzelfde als de hungerDown funtie, maar dan voor de slaapknop.
+function liefdeBarDown() {
+    if(naamGekozen == true){
+        if (widthLiefde <= 0) {
+            eindScherm.style.display = "block"
+        } else if (widthLiefde >= 0){
+            liefdeBar.style.width = `${widthLiefde}%`;
+            widthLiefde--;
+        }
+    }
+}
+
+// deze funtie is hetzelfde als de gainHunger funtie, maar dan voor de slaapknop.
+function liefdeBarUp() {
+    widthLiefde += 10;
+    playSound(audioLiefde)
+    changeImage("afbeeldingen-links/liefde-rode-inktvis.png");
+    if(widthLiefde >= 100){
+        widthLiefde = 100;
+    }
+}
+
+function startNieuwSpel(){
+    location.reload();
+}
+
 // deze interval zorgt ervoor dat de funtie slaapBarDown automatisch constant wordt uitgevoerd.
 setInterval(slaapBarDown, 1000);
 
 // deze interval zorgt ervoor dat de funtie hungerDown automatisch constant wordt uitgevoerd.
 setInterval(hungerDown, 1000);
+
+// deze interval zorgt ervoor dat de funtie liefdeBarDown automatisch constant wordt uitgevoerd.
+setInterval(liefdeBarDown, 1000);
 
 
 // deze event listener zorgt ervoor dat de funtie generateRandomName wordt uitgevoerd
@@ -118,6 +153,9 @@ randomNaamKnop.addEventListener("click", generateRandomName)
 
 
 naamKiezer.addEventListener("click", geefNaam)
+
+
+speelOpnieuw.addEventListener("click", startNieuwSpel)
 
 // deze eventlisteners zorgen ervoor dat de functies gainHunger en slaapBarUp worden uitgevoerd
 knopEten.addEventListener("click", gainHunger);
