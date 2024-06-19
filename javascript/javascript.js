@@ -12,6 +12,8 @@ const audioEten = new Audio("./afbeeldingen-links/eating-sound.mp3");
 const audioSlapen = new Audio("./afbeeldingen-links/sleeping-sound.mp3");
 const audioLiefde = new Audio("./afbeeldingen-links/kissing-sound.mp3");
 
+const defaultImgLink = "afbeeldingen-links/rode-inktvis.png";
+
 const naamveld = document.querySelector("#naamveld");
 const standaardNamen = ["Indy", "Octo", "Janneke", "Henk", "Bo", "Tineke"];
 
@@ -30,7 +32,10 @@ let widthHunger = 100;
 let widthSlaap = 100;
 let widthLiefde = 100;
 let hungerID;
+let secondCount = 0;
+let getal;
 
+// deze functie checkt of er een naam is ingevuld en als dat het geval is dan geeft hij die naam als waarde door. Diego heeft me hierbij geholpen.
 function geefNaam() {
     octopusNaam = naamInput.value;
     if(octopusNaam == ""){
@@ -41,11 +46,12 @@ function geefNaam() {
         tekstVerloren.textContent = octopusNaam + " is ontploft!"
     }
 }
+
+// Bij deze functie wordt er een getal gekozen, en de waarde van dit getal wordt doorgegeven om een naam te kiezen. Mijn broertje en Mariska hebben me hiermee geholpen.
 function generateRandomName() {
-    const getal = Math.floor(Math.random() * 6);
+    getal = Math.floor(Math.random() * 6);
     naamInput.value = standaardNamen[getal];
 }
-
 
 // dit zorgt voor een passend geluid als je op een van de knoppen drukt
 function playSound(audio){
@@ -54,17 +60,11 @@ function playSound(audio){
 
 // Bij deze functie heeft mijn broertje me geholpen. Het zorgt ervoor dat de default afbeelding de rode-inkvis.png is en de andere afbeeldingen voor een bepaalde tijd bijven, waarna de default afbeelding weer tevoorschijn komt
 function changeImage(imgLink) {
-    const defaultImgLink = "afbeeldingen-links/rode-inktvis.png";
     octImage.src = imgLink;
 
-    let secondCount = 0;
-    const intervalID = setInterval(function() {
-        secondCount += 1;
-        if (secondCount == 4) {
-            clearInterval(intervalID);
+    setTimeout(function() {
             octImage.src = defaultImgLink;
-        }
-    }, 1000)
+    }, 4000)
 }
 
 // Hier hebben mijn broertje en Diego me mee geholpen. Het stukje ${widthHunger}% is gescherven door chatgpt. Het zorgt ervoor dat de bar van de honger elke seconde -1 (naar links gaat).
@@ -134,6 +134,7 @@ function liefdeBarUp() {
     }
 }
 
+// deze functie zorgt ervoor dat de pagina opnieuw wordt geladen
 function startNieuwSpel(){
     location.reload();
 }
@@ -151,21 +152,16 @@ setInterval(liefdeBarDown, 1000);
 // deze event listener zorgt ervoor dat de funtie generateRandomName wordt uitgevoerd
 randomNaamKnop.addEventListener("click", generateRandomName)
 
-
+// deze event listener zorgt ervoor dat de funtie geefNaam wordt uitgevoerd
 naamKiezer.addEventListener("click", geefNaam)
 
-
+// deze event listener zorgt ervoor dat de funtie startNieuwSpel wordt uitgevoerd
 speelOpnieuw.addEventListener("click", startNieuwSpel)
 
-// deze eventlisteners zorgen ervoor dat de functies gainHunger en slaapBarUp worden uitgevoerd
+// deze eventlisteners zorgen ervoor dat de functies gainHunger, slaapBarUp en liefdeBarUp worden uitgevoerd
 knopEten.addEventListener("click", gainHunger);
 knopSlapen.addEventListener("click", slaapBarUp);
-
-// deze eventlistener wil ik nog aanpassen zodat er geen functie in staat.
-knopLiefde.addEventListener("click", function() {
-    playSound(audioLiefde)
-    changeImage("afbeeldingen-links/liefde-rode-inktvis.png")
-});
+knopLiefde.addEventListener("click", liefdeBarUp);
 
 
 
